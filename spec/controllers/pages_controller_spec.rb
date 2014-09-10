@@ -4,6 +4,10 @@ RSpec.describe PagesController, :type => :controller do
 
   render_views
   
+  before(:each) do
+  	@base_title = "Simple App du Tutoriel Ruby on Rails"
+  end
+  
   describe "GET home" do
     it "returns http success" do
       get :home
@@ -12,7 +16,7 @@ RSpec.describe PagesController, :type => :controller do
     
     it "devrait avoir le bon titre" do
       get :home
-      assert_select  "title", / | Accueil/
+      assert_select  "title", @base_title+" | Accueil"
     end
   end
 
@@ -24,7 +28,7 @@ RSpec.describe PagesController, :type => :controller do
 
     it "devrait avoir le bon titre" do
       get :contact
-      assert_select  "title", / | Contact/
+      assert_select  "title", @base_title+" | Contact"
     end
 
   end
@@ -37,10 +41,21 @@ RSpec.describe PagesController, :type => :controller do
 	
 	it "devrait avoir le bon titre" do
       get :about
-      assert_select  "title", / | A propos/
+      assert_select  "title", @base_title+" | A propos"
     end
-
-
   end
+
+    
+    describe "GET aide" do
+    
+    it "returns http success" do
+      get :help
+      expect(response).to have_http_status(:success)
+    end
+    it "devrait avoir le bon titre" do
+      get :help
+      assert_select  "title", @base_title+" | Aide"
+    end
+    end
 
 end
