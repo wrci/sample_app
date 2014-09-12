@@ -43,3 +43,4 @@ gem 'rspec-rails', group: :development
 gem 'rspec', group: :test
 gem 'webrat', group: :test
 
+gem 'annotate', group: :development
