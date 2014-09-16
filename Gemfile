@@ -44,3 +44,6 @@ gem 'rspec', group: :test
 gem 'webrat', group: :test
 
 gem 'annotate', group: :development
+gem 'factory_girl_rails', group: :test
+
+gem 'gravatar_image_tag'
