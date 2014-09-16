@@ -53,5 +53,50 @@ render_views
   	end
   
   end
+  
+  describe "POST 'create'" do
+  	describe "échec" do
+  		before(:each) do
+  			@attr = { :nom => "", :email => "", :password => "",
+  												:password_confirmation => "" }
+  		end
+  		
+  		it "ne devrait pas créer d'utilisateur" do
+  			expect {post :create, :user => @attr}.to_not change(User, :count)
+  		end
+  		
+  		it "devrait avoir le bon titre" do
+  			post :create, :user => @attr
+  			assert_select  "title", @base_title+" | Inscription"
+  		end
+  		
+  		it "devrait rendre la page 'new'" do
+  			post :create, :user => @attr
+  			expect(response).to render_template('new')
+  		end
+    end
+    
+    describe "succès" do
+    	
+    	before(:each) do
+        	@attr = { :nom => "New User", :email => "user@example.com",
+                  :password => "foobar", :password_confirmation => "foobar" }
+        end
+        it "devrait créer un utilisateur" do
+        	expect {post :create, :user => @attr}.to change(User, :count).by(1)
+        end
+        
+        it "devrait rediriger vers la page d'affichage de l'utilisateur" do
+        	post :create, :user => @attr
+        	expect(response).to redirect_to(user_path(assigns(:user)))
+        end
+        
+        it "devrait avoir un message de bienvenue" do
+        	post :create, :user => @attr
+        	expect(flash[:success]).to match(/Bienvenue dans l'Application Exemple/)
+        end    
+    end
+    
+  end
 
 end
