@@ -47,3 +47,6 @@ gem 'annotate', group: :development
 gem 'factory_girl_rails', group: :test
 
 gem 'gravatar_image_tag'
+
+gem 'faker', group: :development
+gem 'will_paginate'
